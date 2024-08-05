@@ -6,7 +6,16 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        sm: "375px",
+        md: "744px",
+        lg: "1920px",
+      },
+      boxShadow: {
+        input: "3px 3px black",
+      },
+    },
   },
   plugins: [],
 };
