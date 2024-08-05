@@ -1,11 +1,8 @@
 "use client";
 
-import TodoIcon from "../../../public/images/todo.svg";
-import DoneIcon from "../../../public/images/done.svg";
-
 import todoApi from "@/config/axios";
 import { useQuery } from "@tanstack/react-query";
-import { TodoRow } from "./TodoRow";
+import { TodoWrapper } from "./TodoWrapper";
 
 const fetchTodos = async () => {
   const response = await todoApi.get("/items");
@@ -20,11 +17,10 @@ export const TodoListSection = () => {
   console.log(todosQuery.data);
 
   return (
-    <div>
-      <TodoIcon />
-
-      <TodoRow />
-    </div>
+    <>
+      <TodoWrapper isdone={false} />
+      <TodoWrapper isdone={true} />
+    </>
   );
 };
 
