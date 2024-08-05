@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .text-500 {
+    @apply font-bold text-xl leading-[22.7px];
+  }
+
+  .text-400 {
+    @apply font-bold text-lg leading-[20.43px];
+  }
+
+  .text-300 {
+    @apply font-extrabold text-base leading-[18.16px];
+  }
+
+  .text-200 {
+    @apply font-bold text-base leading-[18.16px];
+  }
+  .text-100 {
+    @apply font-normal text-base leading-[18.16px];
+  }
+}
