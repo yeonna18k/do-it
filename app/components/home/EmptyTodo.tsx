@@ -3,14 +3,12 @@ import DoneLgImg from "@/public/images/done_lg.svg";
 import TodoLgImg from "@/public/images/todo_lg.svg";
 import DoneSmImg from "@/public/images/done_sm.svg";
 import TodoSmImg from "@/public/images/todo_sm.svg";
-import TodoIcon from "@/public/images/todo.svg";
-import DoneIcon from "@/public/images/done.svg";
+
 import { TodoWrapperProps } from "./TodoWrapper";
 
 export const EmptyTodo = ({ isDone }: TodoWrapperProps) => {
   return (
     <>
-      {isDone ? <DoneIcon /> : <TodoIcon />}
       <div className="flex flex-col justify-center items-center p-2">
         {isDone ? (
           <>
