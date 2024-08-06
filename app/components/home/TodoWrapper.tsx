@@ -17,29 +17,18 @@ const fetchTodos = async (): Promise<ApiResponse[]> => {
   return response.data;
 };
 
-export const TodoWrapper: React.FC<TodoWrapperProps> = ({ isDone: isdone }) => {
+export const TodoWrapper: React.FC<TodoWrapperProps> = ({ isDone: isDone }) => {
   const todosQuery = useQuery({
     queryKey: ["todos"],
     queryFn: () => fetchTodos(),
   });
 
   return (
-    <div className="flex flex-col gap-y-4 mx-4 mt-5 mb-10">
-      {isdone ? (
-        <>
-          <DoneIcon />
-          {todosQuery?.data
-            ?.filter((item) => item.isCompleted === true)
-            .map((todo) => <TodoRow key={todo.id} id={todo.id} isCompleted={todo.isCompleted} name={todo.name} />)}
-        </>
-      ) : (
-        <>
-          <TodoIcon />
-          {todosQuery?.data
-            ?.filter((item) => item.isCompleted === false)
-            .map((todo) => <TodoRow key={todo.id} id={todo.id} isCompleted={todo.isCompleted} name={todo.name} />)}
-        </>
-      )}
+    <div className="w-full max-w-[588px] flex flex-col gap-y-4">
+      {isDone ? <DoneIcon /> : <TodoIcon />}
+      {todosQuery?.data
+        ?.filter((item) => item.isCompleted === isDone)
+        .map((todo) => <TodoRow key={todo.id} id={todo.id} isCompleted={todo.isCompleted} name={todo.name} />)}
     </div>
   );
 };
