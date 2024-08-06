@@ -5,16 +5,22 @@ import { Button } from "../Button";
 import { createTodo } from "@/services/todo";
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "@/config/ReactQueryClientProvider";
+import { ApiResponse } from "@/type";
 
 export const AddSection = () => {
   const [input, setInput] = useState("");
 
   const createTodoMutation = useMutation({
-    mutationFn: () => createTodo({ name: input }),
-    onSuccess: () => {
+    mutationFn: createTodo,
+    onMutate: async ({ name }: { name: string }) => {
+      await queryClient.cancelQueries({ queryKey: ["todos"] });
+      const previousTodo = queryClient.getQueryData<ApiResponse[]>(["todos"]) || [];
+      queryClient.setQueryData(["todos"], [...previousTodo, { name, isCompleted: false, id: 0 }]);
+      return { previousTodo };
+    },
+    onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
       setInput("");
-      console.log("성공");
     },
   });
 
@@ -23,7 +29,7 @@ export const AddSection = () => {
       className="p-4 flex gap-4 justify-center"
       onSubmit={(e) => {
         e.preventDefault();
-        createTodoMutation.mutate();
+        createTodoMutation.mutate({ name: input });
       }}
     >
       <input
