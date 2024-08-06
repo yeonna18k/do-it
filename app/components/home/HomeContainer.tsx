@@ -4,7 +4,7 @@ import TodoListSection from "./TodoListSection";
 
 export const HomeContainer = () => {
   return (
-    <main className="">
+    <main className="bg-[#F9FAFB]">
       <AddSection />
       <TodoListSection />
     </main>
