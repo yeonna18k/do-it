@@ -1,5 +1,8 @@
 import React from "react";
 import Link from "next/link";
+import { switchTodo } from "@/services/todo";
+import { useMutation } from "@tanstack/react-query";
+import { queryClient } from "@/config/ReactQueryClientProvider";
 import DefaultBoxIcon from "../../../public/icons/checkbox_default.svg";
 import CheckedBoxIcon from "../../../public/icons/checkbox_checked.svg";
 
@@ -9,10 +12,18 @@ interface TodoProps {
   name: string;
 }
 
-export const TodoRow: React.FC<TodoProps> = ({ id, isCompleted, name }) => {
+export const TodoRow = ({ id, isCompleted, name }: TodoProps) => {
   const handleIconClick = (e: React.MouseEvent) => {
     e.preventDefault();
+    SwitchTodoMutation.mutate(!isCompleted);
   };
+
+  const SwitchTodoMutation = useMutation({
+    mutationFn: (isCompleted: boolean) => switchTodo(id, isCompleted),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
+    },
+  });
 
   return (
     <Link href={`/items/${id}`}>
