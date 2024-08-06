@@ -4,10 +4,10 @@ import React from "react";
 import { TodoRow } from "./TodoRow";
 import { useQuery } from "@tanstack/react-query";
 import { fetchTodos } from "@/app/services/todo";
-import { ApiResponse } from "@/type";
 import { EmptyTodo } from "./EmptyTodo";
 import TodoIcon from "@/public/images/todo.svg";
 import DoneIcon from "@/public/images/done.svg";
+import { ApiResponse } from "@/app/types/type";
 
 export interface TodoWrapperProps {
   isDone: boolean;

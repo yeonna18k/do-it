@@ -5,7 +5,7 @@ import { Button } from "../Button";
 import { createTodo } from "@/app/services/todo";
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "@/config/ReactQueryClientProvider";
-import { ApiResponse } from "@/type";
+import { ApiResponse } from "@/app/types/type";
 
 export const AddSection = () => {
   const [input, setInput] = useState("");

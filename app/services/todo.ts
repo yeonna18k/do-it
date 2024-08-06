@@ -1,5 +1,5 @@
 import todoApi from "@/config/axios";
-import { ApiResponse } from "@/type";
+import { ApiResponse } from "../types/type";
 
 interface PostTodo {
   name: string;

@@ -5,7 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "@/config/ReactQueryClientProvider";
 import DefaultBoxIcon from "../../../public/icons/checkbox_default.svg";
 import CheckedBoxIcon from "../../../public/icons/checkbox_checked.svg";
-import { ApiResponse } from "@/type";
+import { ApiResponse } from "@/app/types/type";
 
 interface TodoProps {
   id: number;
