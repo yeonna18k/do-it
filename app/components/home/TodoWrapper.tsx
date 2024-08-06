@@ -24,7 +24,7 @@ export const TodoWrapper: React.FC<TodoWrapperProps> = ({ isDone: isDone }) => {
   });
 
   return (
-    <div className="w-full max-w-[588px] flex flex-col gap-y-4">
+    <div className="w-full lg:max-w-[588px] flex flex-col gap-y-4">
       {isDone ? <DoneIcon /> : <TodoIcon />}
       {todosQuery?.data
         ?.filter((item) => item.isCompleted === isDone)
