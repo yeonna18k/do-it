@@ -10,7 +10,7 @@ module.exports = {
       screens: {
         sm: "375px",
         md: "744px",
-        lg: "1920px",
+        lg: "1200px",
       },
       boxShadow: {
         input: "3px 3px black",
