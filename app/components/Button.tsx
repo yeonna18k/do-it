@@ -16,7 +16,7 @@ const bgColorMap: { [key: string]: string } = {
   gray: "bg-slate-200",
 };
 
-export const AddButton = ({ icon, content, bgColor }: ButtonProps) => {
+export const Button = ({ icon, content, bgColor }: ButtonProps) => {
   const bgColorClass = bgColorMap[bgColor] || "bg-slate-200";
 
   const renderIcon = () => {
