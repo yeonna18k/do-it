@@ -2,22 +2,16 @@
 
 import React from "react";
 import { TodoRow } from "./TodoRow";
-import todoApi from "@/config/axios";
-import { ApiResponse } from "@/type";
 import TodoIcon from "@/public/images/todo.svg";
 import DoneIcon from "@/public/images/done.svg";
 import { useQuery } from "@tanstack/react-query";
+import { fetchTodos } from "@/services/todo";
 
 interface TodoWrapperProps {
   isDone: boolean;
 }
 
-const fetchTodos = async (): Promise<ApiResponse[]> => {
-  const response = await todoApi.get<ApiResponse[]>("/items");
-  return response.data;
-};
-
-export const TodoWrapper: React.FC<TodoWrapperProps> = ({ isDone: isDone }) => {
+export const TodoWrapper = ({ isDone }: TodoWrapperProps) => {
   const todosQuery = useQuery({
     queryKey: ["todos"],
     queryFn: () => fetchTodos(),
