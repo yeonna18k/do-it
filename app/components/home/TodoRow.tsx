@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { switchTodo } from "@/services/todo";
+import { switchTodo } from "@/app/services/todo";
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "@/config/ReactQueryClientProvider";
 import DefaultBoxIcon from "../../../public/icons/checkbox_default.svg";

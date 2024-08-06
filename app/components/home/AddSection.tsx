@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "../Button";
-import { createTodo } from "@/services/todo";
+import { createTodo } from "@/app/services/todo";
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "@/config/ReactQueryClientProvider";
 import { ApiResponse } from "@/type";
