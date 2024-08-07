@@ -3,11 +3,11 @@
 import { useState } from "react";
 import { Button } from "../Button";
 import { createTodo } from "@/app/services/todo";
-import { useMutation } from "@tanstack/react-query";
-import { queryClient } from "@/config/ReactQueryClientProvider";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ApiResponse } from "@/app/types/type";
 
 export const AddSection = () => {
+  const queryClient = useQueryClient();
   const [input, setInput] = useState("");
 
   const createTodoMutation = useMutation({

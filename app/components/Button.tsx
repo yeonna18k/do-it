@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import AddIcon from "@/public/icons/add_white.svg";
 import DeleteIcon from "@/public/icons/delete.svg";
