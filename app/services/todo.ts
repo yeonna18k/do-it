@@ -24,3 +24,8 @@ export const fetchTodos = async (): Promise<ApiResponse[]> => {
   console.log(response);
   return response.data;
 };
+
+export const fetchTodo = async (id: number): Promise<ApiResponse> => {
+  const response = await todoApi.get<ApiResponse>(`/items/${id}`);
+  return response.data;
+};
