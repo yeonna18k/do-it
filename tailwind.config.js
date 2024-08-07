@@ -17,6 +17,7 @@ module.exports = {
       },
       backgroundImage: {
         memo: "url('/images/memo.svg')",
+        emptyimg: "url('/images/img.svg')",
       },
     },
   },
