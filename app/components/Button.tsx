@@ -9,6 +9,7 @@ interface ButtonProps {
   icon: "addDefault" | "addPurple" | "delete" | "complete";
   content: string;
   bgColor: "red" | "purple" | "green" | "gray";
+  textColor: "black" | "white";
 }
 
 const bgColorMap: { [key: string]: string } = {
@@ -18,8 +19,14 @@ const bgColorMap: { [key: string]: string } = {
   gray: "bg-slate-200",
 };
 
-export const Button = ({ icon, content, bgColor }: ButtonProps) => {
+const textColorMap: { [key: string]: string } = {
+  black: "text-black",
+  white: "text-white",
+};
+
+export const Button = ({ icon, content, bgColor, textColor }: ButtonProps) => {
   const bgColorClass = bgColorMap[bgColor] || "bg-slate-200";
+  const textColorClass = textColorMap[textColor] || "black";
 
   const renderIcon = () => {
     switch (icon) {
@@ -42,7 +49,7 @@ export const Button = ({ icon, content, bgColor }: ButtonProps) => {
         ${bgColorClass}`}
     >
       {renderIcon()}
-      <span className="hidden md:block text-100">{content}</span>
+      <span className={`${content === "추가하기" && "hidden md:block"} ${textColorClass} text-100`}>{content}</span>
     </button>
   );
 };
