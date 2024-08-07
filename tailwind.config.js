@@ -15,6 +15,9 @@ module.exports = {
       boxShadow: {
         input: "3px 3px black",
       },
+      backgroundImage: {
+        memo: "url('/images/memo.svg')",
+      },
     },
   },
   plugins: [],
