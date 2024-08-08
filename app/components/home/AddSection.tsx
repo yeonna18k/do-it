@@ -15,7 +15,7 @@ export const AddSection = () => {
     onMutate: async ({ name }: { name: string }) => {
       await queryClient.cancelQueries({ queryKey: ["todos"] });
       const previousTodo = queryClient.getQueryData<ApiResponse[]>(["todos"]) || [];
-      queryClient.setQueryData(["todos"], [...previousTodo, { name, isCompleted: false, id: 0 }]);
+      queryClient.setQueryData(["todos"], [{ name, isCompleted: false, id: 0 }, ...previousTodo]);
       return { previousTodo };
     },
     onSettled: () => {
