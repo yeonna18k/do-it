@@ -1,23 +1,25 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Link from "next/link";
 import { switchTodo } from "@/app/services/todo";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import DefaultBoxIcon from "../../../public/icons/checkbox_default.svg";
 import CheckedBoxIcon from "../../../public/icons/checkbox_checked.svg";
 import { ApiResponse } from "@/app/types/type";
+import { cn } from "@/app/utils/tailwind";
 
 interface TodoProps {
   id: number;
   isCompleted: boolean;
   name: string;
+  setName?: React.Dispatch<React.SetStateAction<string>>;
   isDetail?: boolean;
   className?: React.HTMLAttributes<HTMLDivElement>["className"];
 }
 0;
 
-export const TodoRow = ({ id, isCompleted, name, isDetail, className }: TodoProps) => {
+export const TodoRow = ({ id, isCompleted, name, setName, isDetail, className }: TodoProps) => {
   const queryClient = useQueryClient();
   const handleIconClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -51,19 +53,37 @@ export const TodoRow = ({ id, isCompleted, name, isDetail, className }: TodoProp
     },
   });
 
-  return (
-    <Link href={`/items/${id}`}>
+  const rowContent = (
+    <div
+      className={cn(
+        `flex items-center border-2 border-black rounded-[27px] p-2 gap-4`,
+        { "line-through bg-violet-100": isCompleted },
+        { "justify-center underline": isDetail },
+      )}
+    >
       <div
-        className={`flex items-center border-2 border-black rounded-[27px] p-2 gap-4 ${isCompleted ? "line-through bg-violet-100" : "bg-white"} ${className}`}
+        className="transition ease-linear hover:cursor-pointer hover:opacity-25 rounded-full"
+        onClick={handleIconClick}
       >
-        <div
-          className="transition ease-linear hover:cursor-pointer hover:opacity-25 rounded-full"
-          onClick={handleIconClick}
-        >
-          {isCompleted ? <CheckedBoxIcon /> : <DefaultBoxIcon />}
-        </div>
-        <div className="text-100">{name}</div>
+        {isCompleted ? <CheckedBoxIcon /> : <DefaultBoxIcon />}
       </div>
-    </Link>
+      {isDetail ? (
+        <input
+          defaultValue={name}
+          style={{ width: name.length * 15 + "px" }}
+          className="bg-transparent w-fit"
+          onChange={(event) => {
+            if (setName) {
+              event.currentTarget.style.width = event.currentTarget.value.length * 11 + "px";
+              setName(event.currentTarget.value);
+            }
+          }}
+        />
+      ) : (
+        <div className="text-100">{name}</div>
+      )}
+    </div>
   );
+
+  return isDetail ? rowContent : <Link href={`/items/${id}`}>{rowContent}</Link>;
 };
