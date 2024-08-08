@@ -52,3 +52,8 @@ export const editTodo = async ({ id, name, memo, imageUrl }: EditTodo) => {
   console.log(response.data);
   return response.data;
 };
+
+export const deleteTodo = async (id: number) => {
+  const response = await todoApi.delete(`/items/${id}`);
+  return response.data;
+};
