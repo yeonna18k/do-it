@@ -1,10 +1,16 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AddDarkIcon from "@/public/icons/add_dark.svg";
 import Image from "next/image";
 
 const DEFAULT_IMG = "/images/img.svg";
 
-export const ImageSection = () => {
+export const ImageSection = ({
+  imgUrl,
+  setImgFile,
+}: {
+  imgUrl: string | undefined;
+  setImgFile: React.Dispatch<React.SetStateAction<File | null>>;
+}) => {
   const imgRef = useRef<HTMLInputElement>(null);
   const [previewImg, setPreviewImg] = useState<string>(DEFAULT_IMG);
 
@@ -17,8 +23,12 @@ export const ImageSection = () => {
       reader.onloadend = () => {
         setPreviewImg(reader.result as string);
       };
+      setImgFile(file);
     }
   };
+  useEffect(() => {
+    imgUrl && setPreviewImg(imgUrl);
+  }, [imgUrl]);
 
   return (
     <div className="relative w-full h-[311px] flex justify-center bg-slate-50 border-dashed border-2 rounded-3xl border-slate-300">
