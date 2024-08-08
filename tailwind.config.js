@@ -19,6 +19,9 @@ module.exports = {
         memo: "url('/images/memo.svg')",
         emptyimg: "url('/images/img.svg')",
       },
+      fontFamily: {
+        sans: ["var(--font-nanumSquare)"],
+      },
     },
   },
   plugins: [],

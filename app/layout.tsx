@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import ReactQueryClientProvider from "@/config/ReactQueryClientProvider";
 import { Header } from "./components/Header";
-
-const inter = Inter({ subsets: ["latin"] });
+import { nanumSquare } from "./utils/font";
 
 export const metadata: Metadata = {
   title: "Do it",
@@ -17,9 +15,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
+    <html lang="ko" className={`${nanumSquare.variable} font-sans`}>
       <ReactQueryClientProvider>
-        <body className={inter.className}>
+        <body>
           <Header />
           {children}
         </body>
