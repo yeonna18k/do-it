@@ -1,13 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { HTMLAttributes } from "react";
 import AddIcon from "@/public/icons/add_white.svg";
 import DeleteIcon from "@/public/icons/delete.svg";
 import CompleteIcon from "@/public/icons/complete.svg";
 
-interface ButtonProps {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   icon: "addDefault" | "addPurple" | "delete" | "complete";
-  content: string;
+  // content: string;
   bgColor: "red" | "purple" | "green" | "gray";
   textColor: "black" | "white";
 }
@@ -24,7 +24,7 @@ const textColorMap: { [key: string]: string } = {
   white: "text-white",
 };
 
-export const Button = ({ icon, content, bgColor, textColor }: ButtonProps) => {
+export const Button = ({ icon, content, bgColor, textColor, ...props }: ButtonProps) => {
   const bgColorClass = bgColorMap[bgColor] || "bg-slate-200";
   const textColorClass = textColorMap[textColor] || "black";
 
@@ -45,6 +45,7 @@ export const Button = ({ icon, content, bgColor, textColor }: ButtonProps) => {
 
   return (
     <button
+      {...props}
       className={`flex items-center justify-center md:w-[162px] lg:w-[168px] gap-1 p-[18px] border-2 border-black rounded-[24px] shadow-input 
         ${bgColorClass}`}
     >
