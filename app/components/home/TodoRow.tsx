@@ -33,9 +33,13 @@ export const TodoRow = ({ id, isCompleted, name, setName, isDetail }: TodoProps)
         <input
           defaultValue={name}
           className="bg-transparent w-fit"
+          style={{
+            width: name.length + "ch",
+          }}
           onChange={(event) => {
             if (setName) {
               setName(event.currentTarget.value);
+              event.currentTarget.style.width = event.currentTarget.value.length + "ch";
             }
           }}
         />
