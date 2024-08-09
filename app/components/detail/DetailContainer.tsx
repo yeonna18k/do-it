@@ -7,8 +7,8 @@ import { ImageSection } from "./ImageSection";
 import { ButtonSection } from "./ButtonSection";
 import { useRouter } from "next/navigation";
 import useTodoMutation from "@/app/hooks/detail/useTodoMutation";
-import useTodoQuery from "@/app/hooks/home/useTodoQuery";
 import { LoadingSpinner } from "../common/LoadingSpinner";
+import useTodoDetailQuery from "@/app/hooks/home/useTodoDetailQuery";
 
 export const DetailContainer = ({ id }: { id: string }) => {
   const [imgFile, setImgFile] = useState<File | null>(null);
@@ -19,7 +19,7 @@ export const DetailContainer = ({ id }: { id: string }) => {
   const router = useRouter();
 
   const { deleteTodoMutation, editTodoMutation, isEditTodoPending, uploadMutation } = useTodoMutation();
-  const { todo, isTodoPending } = useTodoQuery(id);
+  const { todo, isTodoPending } = useTodoDetailQuery(id);
 
   const editHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -33,7 +33,7 @@ export const DetailContainer = ({ id }: { id: string }) => {
 
   const deleteHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    deleteTodoMutation(Number(id));
+    await deleteTodoMutation(Number(id));
     router.push("/");
   };
 
