@@ -49,11 +49,9 @@ const useTodoMutation = (isDetail?: Pick<TodoProps, "isDetail">) => {
       await queryClient.cancelQueries({ queryKey: ["todos"] });
       const previousTodo = queryClient.getQueryData<ApiResponse[]>(["todos"]) || [];
       const newTodoList = previousTodo.filter((todo) => todo.id !== id);
+
       queryClient.setQueryData<ApiResponse[]>(["todos"], newTodoList);
       return { newTodoList };
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
   });
 

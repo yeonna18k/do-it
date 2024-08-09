@@ -1,12 +1,7 @@
 import { fetchTodo, fetchTodos } from "@/app/services/todo";
 import { useQuery } from "@tanstack/react-query";
 
-const useTodoQuery = (id: string) => {
-  const { data: todos, error: isTodosError } = useQuery({
-    queryKey: ["todos"],
-    queryFn: () => fetchTodos(),
-  });
-
+const useTodoDetailQuery = (id: string) => {
   const {
     data: todo,
     error: isTodoError,
@@ -16,6 +11,6 @@ const useTodoQuery = (id: string) => {
     queryFn: () => fetchTodo(Number(id)),
   });
 
-  return { todos, todo, isTodoPending };
+  return { todo, isTodoPending };
 };
-export default useTodoQuery;
+export default useTodoDetailQuery;
