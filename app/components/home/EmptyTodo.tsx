@@ -6,7 +6,7 @@ import TodoSmImg from "@/public/images/todo_sm.svg";
 
 import { TodoWrapperProps } from "./TodoWrapper";
 
-export const EmptyTodo = ({ isDone }: TodoWrapperProps) => {
+export const EmptyTodo = ({ isDone }: { isDone: boolean }) => {
   return (
     <>
       <div className="flex flex-col justify-center items-center p-2">

@@ -6,14 +6,14 @@ import { EmptyTodo } from "./EmptyTodo";
 import TodoIcon from "@/public/images/todo.svg";
 import DoneIcon from "@/public/images/done.svg";
 import { ApiResponse } from "@/app/types/type";
-import useTodoQuery from "@/app/hooks/home/useTodoQuery";
+import useTodoListQuery from "@/app/hooks/home/useTodoListQuery";
 
 export interface TodoWrapperProps {
   isDone: boolean;
+  todos: ApiResponse[];
 }
 
-export const TodoWrapper = ({ isDone }: TodoWrapperProps) => {
-  const { todos } = useTodoQuery();
+export const TodoWrapper = ({ todos, isDone }: TodoWrapperProps) => {
   const filteredTodos = todos?.filter((item: ApiResponse) => item.isCompleted === isDone);
 
   return (
