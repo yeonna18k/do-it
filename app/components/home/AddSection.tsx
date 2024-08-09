@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "../Button";
 import useCreateTodo from "@/app/hooks/home/useCreateTodo";
+import { Button } from "../common/Button";
 
 export const AddSection = () => {
   const [input, setInput] = useState("");
