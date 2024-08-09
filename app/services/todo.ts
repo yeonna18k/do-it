@@ -11,8 +11,8 @@ interface SwitchTodo {
 interface EditTodo {
   id: number;
   name: string;
-  memo: string;
-  imageUrl: string | null;
+  memo: string | null;
+  imageUrl: string;
 }
 
 export const createTodo = async (todo: PostTodo) => {
@@ -49,7 +49,6 @@ export const uploadImg = async (file: File) => {
 
 export const editTodo = async ({ id, name, memo, imageUrl }: EditTodo) => {
   const response = await todoApi.patch(`/items/${id}`, { name, memo, imageUrl });
-  console.log(response.data);
   return response.data;
 };
 
