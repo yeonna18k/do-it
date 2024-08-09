@@ -12,7 +12,7 @@ interface EditTodo {
   id: number;
   name: string;
   memo: string;
-  imageUrl: string;
+  imageUrl: string | null;
 }
 
 export const createTodo = async (todo: PostTodo) => {
