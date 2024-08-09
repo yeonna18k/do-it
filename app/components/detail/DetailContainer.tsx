@@ -8,6 +8,7 @@ import { ButtonSection } from "./ButtonSection";
 import { useRouter } from "next/navigation";
 import useTodoMutation from "@/app/hooks/detail/useTodoMutation";
 import useTodoQuery from "@/app/hooks/home/useTodoQuery";
+import { LoadingSpinner } from "../common/LoadingSpinner";
 
 export const DetailContainer = ({ id }: { id: string }) => {
   const [imgFile, setImgFile] = useState<File | null>(null);
@@ -18,11 +19,11 @@ export const DetailContainer = ({ id }: { id: string }) => {
   const router = useRouter();
 
   const { deleteTodoMutation, editTodoMutation, isEditTodoPending, uploadMutation } = useTodoMutation();
-  const { todo } = useTodoQuery(id);
+  const { todo, isTodoPending } = useTodoQuery(id);
 
   const editHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    let imgUrl = todo?.imageUrl || null;
+    let imgUrl = todo?.imageUrl || "";
     if (imgFile) {
       const result = await uploadMutation.mutateAsync(imgFile as File);
       imgUrl = result.url;
@@ -39,9 +40,15 @@ export const DetailContainer = ({ id }: { id: string }) => {
   useEffect(() => {
     if (todo) {
       setName(todo.name);
-      setMemo(todo.memo);
+      if (todo.memo) setMemo(todo.memo);
     }
   }, [todo]);
+  if (isTodoPending)
+    return (
+      <div className="h-[calc(100vh-60px-2rem)]">
+        <LoadingSpinner />
+      </div>
+    );
 
   return (
     <form className={`${isEditTodoPending ? "opacity-50 pointer-events-none " : ""}`}>
