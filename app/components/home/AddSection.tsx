@@ -2,27 +2,12 @@
 
 import { useState } from "react";
 import { Button } from "../Button";
-import { createTodo } from "@/app/services/todo";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { ApiResponse } from "@/app/types/type";
+import useCreateTodo from "@/app/hooks/home/useCreateTodo";
 
 export const AddSection = () => {
-  const queryClient = useQueryClient();
   const [input, setInput] = useState("");
 
-  const createTodoMutation = useMutation({
-    mutationFn: createTodo,
-    onMutate: async ({ name }: { name: string }) => {
-      await queryClient.cancelQueries({ queryKey: ["todos"] });
-      const previousTodo = queryClient.getQueryData<ApiResponse[]>(["todos"]) || [];
-      queryClient.setQueryData(["todos"], [{ name, isCompleted: false, id: 0 }, ...previousTodo]);
-      return { previousTodo };
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
-      setInput("");
-    },
-  });
+  const { createTodoMutation } = useCreateTodo(setInput);
 
   return (
     <form

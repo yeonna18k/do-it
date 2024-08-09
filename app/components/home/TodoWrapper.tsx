@@ -2,24 +2,19 @@
 
 import React from "react";
 import { TodoRow } from "./TodoRow";
-import { useQuery } from "@tanstack/react-query";
-import { fetchTodos } from "@/app/services/todo";
 import { EmptyTodo } from "./EmptyTodo";
 import TodoIcon from "@/public/images/todo.svg";
 import DoneIcon from "@/public/images/done.svg";
 import { ApiResponse } from "@/app/types/type";
+import useTodoQuery from "@/app/hooks/home/useTodoQuery";
 
 export interface TodoWrapperProps {
   isDone: boolean;
 }
 
 export const TodoWrapper = ({ isDone }: TodoWrapperProps) => {
-  const todosQuery = useQuery({
-    queryKey: ["todos"],
-    queryFn: () => fetchTodos(),
-  });
-
-  const filteredTodos = todosQuery?.data?.filter((item: ApiResponse) => item.isCompleted === isDone);
+  const { todos } = useTodoQuery();
+  const filteredTodos = todos?.filter((item: ApiResponse) => item.isCompleted === isDone);
 
   return (
     <div className="w-full lg:max-w-[588px] flex flex-col gap-y-4">
