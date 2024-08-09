@@ -59,8 +59,16 @@ const useTodoMutation = (isDetail?: Pick<TodoProps, "isDetail">) => {
 
   const { mutateAsync: editTodoMutation, isPending: isEditTodoPending } = useMutation({
     mutationFn: editTodo,
+    onMutate: async ({ id, name, memo, imageUrl }) => {
+      await queryClient.cancelQueries({ queryKey: ["todos", id] });
+      const previousTodo = queryClient.getQueryData<ApiResponse>(["todos", id]);
+      if (previousTodo) {
+        const newTodo = { ...previousTodo, name, memo, imageUrl };
+        queryClient.setQueryData<ApiResponse>(["todos", id], newTodo);
+      }
+      return { previousTodo };
+    },
     onSuccess: (todo) => {
-      // TODO: Optimistic Updates 적용하기
       queryClient.invalidateQueries({ queryKey: ["todos", todo.id] });
       router.push("/");
     },
@@ -68,7 +76,6 @@ const useTodoMutation = (isDetail?: Pick<TodoProps, "isDetail">) => {
 
   const uploadMutation = useMutation({
     mutationFn: (file: File) => uploadImg(file),
-
     onError: (error) => {
       console.error("파일 업로드 실패:", error);
     },
