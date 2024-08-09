@@ -14,7 +14,6 @@ export const ImageSection = ({
 }) => {
   const imgRef = useRef<HTMLInputElement>(null);
   const [previewImg, setPreviewImg] = useState<string>(DEFAULT_IMG);
-  console.log(imgUrl);
 
   const handleUploadImg = async () => {
     setPreviewImg(DEFAULT_IMG);
