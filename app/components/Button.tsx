@@ -1,6 +1,6 @@
 "use client";
 
-import React, { HTMLAttributes } from "react";
+import React from "react";
 import AddIcon from "@/public/icons/add_white.svg";
 import DeleteIcon from "@/public/icons/delete.svg";
 import CompleteIcon from "@/public/icons/complete.svg";
