@@ -64,7 +64,7 @@ export const DetailContainer = ({ id }: { id: string }) => {
       )}
       <ImageSection imgUrl={todo?.imageUrl} setImgFile={setImgFile} />
       <MemoSection memo={todo?.memo || ""} setMemo={setMemo} />
-      <ButtonSection editHandler={editHandler} deleteHandler={deleteHandler} />
+      <ButtonSection isCompleted={todo?.isCompleted} editHandler={editHandler} deleteHandler={deleteHandler} />
     </form>
   );
 };
