@@ -8,7 +8,7 @@ import { ButtonSection } from "./ButtonSection";
 import { useRouter } from "next/navigation";
 import useTodoMutation from "@/app/hooks/detail/useTodoMutation";
 import { LoadingSpinner } from "../common/LoadingSpinner";
-import useTodoDetailQuery from "@/app/hooks/home/useTodoDetailQuery";
+import useTodoDetailQuery from "@/app/hooks/detail/useTodoDetailQuery";
 
 export const DetailContainer = ({ id }: { id: string }) => {
   const [imgFile, setImgFile] = useState<File | null>(null);
