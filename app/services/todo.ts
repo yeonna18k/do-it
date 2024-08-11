@@ -25,9 +25,8 @@ export const switchTodo = async ({ id, isCompleted }: SwitchTodo) => {
   return response.data;
 };
 
-export const fetchTodos = async (): Promise<ApiResponse[]> => {
-  const response = await todoApi.get<ApiResponse[]>("/items");
-  console.log(response);
+export const fetchTodos = async (pageParam: number): Promise<ApiResponse[]> => {
+  const response = await todoApi.get<ApiResponse[]>(`/items?page=${pageParam}`);
   return response.data;
 };
 
