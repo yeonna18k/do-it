@@ -4,12 +4,10 @@ import TodoLgImg from "@/public/images/todo_lg.svg";
 import DoneSmImg from "@/public/images/done_sm.svg";
 import TodoSmImg from "@/public/images/todo_sm.svg";
 
-import { TodoWrapperProps } from "./TodoWrapper";
-
 export const EmptyTodo = ({ isDone }: { isDone: boolean }) => {
   return (
     <>
-      <div className="flex flex-col justify-center items-center p-2">
+      <div className="flex flex-col justify-center items-center gap-4 md:gap-6 lg:mt-16">
         {isDone ? (
           <>
             <DoneLgImg className="hidden md:block" />
