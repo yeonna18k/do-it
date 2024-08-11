@@ -1,13 +1,21 @@
 import { fetchTodo, fetchTodos } from "@/app/services/todo";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+
+const PAGE_SIZE = 10;
 
 const useTodoListQuery = () => {
-  const { data: todos, error: isTodosError } = useQuery({
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
     queryKey: ["todos"],
-    queryFn: () => fetchTodos(),
+    queryFn: ({ pageParam }) => fetchTodos(pageParam),
     refetchOnMount: false,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, pages) => {
+      return lastPage.length < PAGE_SIZE ? undefined : pages.length + 1;
+    },
   });
 
-  return { todos };
+  const todos = data?.pages.flat();
+
+  return { todos, fetchNextPage, hasNextPage, isFetchingNextPage };
 };
 export default useTodoListQuery;
