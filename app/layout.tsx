@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="ko" className={`${nanumSquare.variable} font-sans`}>
       <ReactQueryClientProvider>
-        <body>
+        <body className="bg-[#F9FAFB]">
           <Header />
           {children}
         </body>

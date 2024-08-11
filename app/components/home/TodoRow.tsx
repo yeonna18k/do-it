@@ -8,7 +8,7 @@ import CheckedBoxIcon from "@/public/icons/checkbox_checked.svg";
 import useTodoMutation, { TodoProps } from "@/app/hooks/detail/useTodoMutation";
 
 export const TodoRow = ({ id, isCompleted, name, setName, isDetail }: TodoProps) => {
-  const { switchTodoMutation } = useTodoMutation({ isDetail });
+  const { switchTodoMutation } = useTodoMutation(isDetail);
 
   const handleIconClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -18,7 +18,7 @@ export const TodoRow = ({ id, isCompleted, name, setName, isDetail }: TodoProps)
   const rowContent = (
     <div
       className={cn(
-        `flex items-center border-2 border-black rounded-[27px] p-2 gap-4`,
+        `flex items-center border-2 border-black rounded-[27px] p-2 gap-4 bg-white`,
         { "line-through bg-violet-100": isCompleted },
         { "text-500 justify-center underline": isDetail },
       )}

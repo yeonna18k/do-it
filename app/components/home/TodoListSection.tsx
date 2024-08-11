@@ -9,7 +9,7 @@ export const TodoListSection = () => {
 
   if (!todos) return <LoadingSpinner />;
   return (
-    <div className="flex flex-col items-center lg:flex-row lg:justify-center lg:items-start gap-8 mx-4 mt-5 mb-10 ">
+    <div className="flex flex-col items-center lg:flex-row lg:justify-center lg:items-start gap-8 lg:gap-6 mt-4 mb-10">
       <TodoWrapper todos={todos} isDone={false} />
       <TodoWrapper todos={todos} isDone={true} />
     </div>

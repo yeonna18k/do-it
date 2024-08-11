@@ -46,7 +46,7 @@ export const Button = ({ icon, content, bgColor, textColor, ...props }: ButtonPr
   return (
     <button
       {...props}
-      className={`flex items-center justify-center md:w-[162px] lg:w-[168px] gap-1 p-[18px] border-2 border-black rounded-[24px] shadow-input 
+      className={`flex items-center justify-center md:min-w-[162px] lg:min-w-[168px] gap-1 p-[18px] border-2 border-black rounded-[24px] shadow-input 
         ${bgColorClass}`}
     >
       {renderIcon()}
