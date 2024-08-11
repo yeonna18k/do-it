@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className={`${nanumSquare.variable} font-sans`}>
+    <html lang="ko" className={`${nanumSquare.variable} font-sans overflow-y-hidden`}>
       <ReactQueryClientProvider>
         <body className="bg-[#F9FAFB]">
           <Header />
