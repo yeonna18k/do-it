@@ -12,7 +12,7 @@ export interface TodoProps {
   className?: React.HTMLAttributes<HTMLDivElement>["className"];
 }
 
-const useTodoMutation = (isDetail?: Pick<TodoProps, "isDetail">) => {
+const useTodoMutation = (isDetail?: boolean) => {
   const router = useRouter();
   const queryClient = useQueryClient();
 
@@ -20,6 +20,7 @@ const useTodoMutation = (isDetail?: Pick<TodoProps, "isDetail">) => {
     mutationFn: switchTodo,
     onMutate: async ({ id, isCompleted }: Omit<TodoProps, "name">) => {
       // Omit: TodoProps에서 부분만 사용
+
       if (isDetail) {
         // Optimistic Updates: Detail 페이지에서 사용
         await queryClient.cancelQueries({ queryKey: ["todos", id] });

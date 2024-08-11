@@ -15,9 +15,6 @@ const useCreateTodo = (setInput: React.Dispatch<SetStateAction<string>>) => {
       queryClient.setQueryData(["todos"], [{ name, isCompleted: false, id: 0 }, ...previousTodo]);
       return { previousTodo };
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
-    },
   });
   return { createTodoMutation };
 };
