@@ -13,7 +13,7 @@ module.exports = {
         lg: "1200px",
       },
       boxShadow: {
-        input: "3px 3px black",
+        input: "1px 3px black",
       },
       backgroundImage: {
         memo: "url('/images/memo.svg')",
