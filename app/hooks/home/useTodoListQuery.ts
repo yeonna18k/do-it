@@ -1,5 +1,5 @@
-import { fetchTodo, fetchTodos } from "@/app/services/todo";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { fetchTodos } from "@/app/services/todo";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 const PAGE_SIZE = 10;
 
