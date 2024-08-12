@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Do-It
 
-## Getting Started
+## 프로젝트 소개
 
-First, run the development server:
+Do-It은 React와 TypeScript를 기반으로 한 작업 관리 애플리케이션으로, 사용자가 일상적인 작업을 효율적으로 관리할 수 있도록 돕습니다. 이 애플리케이션은 할 일 생성, 수정, 삭제 및 완료 상태 전환과 같은 기본 기능을 제공하며, 이미지 업로드 및 무한 스크롤 기능도 지원합니다.
 
-```bash
+## 주요 기능
+
+- **할 일 관리**: 작업을 생성, 수정, 삭제하고 완료 상태를 전환할 수 있습니다.
+- **무한 스크롤**: 스크롤을 내릴 때마다 추가 작업을 자동으로 불러옵니다.
+- **이미지 업로드**: 작업에 이미지를 첨부하여 관리할 수 있습니다.
+- **반응형 디자인**: 다양한 기기에서 최적화된 사용자 경험을 제공합니다.
+
+## 사용한 기술 스택
+
+- **Next.js**: 서버 사이드 렌더링(SSR) 및 정적 사이트 생성을 지원하는 React 프레임워크.
+- **React**: 사용자 인터페이스 구축을 위한 JavaScript 라이브러리.
+- **TypeScript**: JavaScript의 상위 집합으로 정적 타입을 지원하여 코드의 안정성을 높입니다.
+- **React Query**: 서버 상태 관리 및 데이터 페칭을 쉽게 할 수 있는 라이브러리.
+- **Tailwind CSS**: 유틸리티-퍼스트 CSS 프레임워크로, 신속한 스타일링을 지원합니다.
+- **Axios**: HTTP 요청을 처리하기 위한 클라이언트.
+
+## 프로젝트 구조
+
+이 프로젝트는 다음과 같은 주요 디렉토리와 파일로 구성되어 있습니다:
+
+- `components/` : 재사용 가능한 React 컴포넌트들이 위치한 디렉토리입니다.
+- `pages/` : Next.js의 페이지들이 위치한 디렉토리입니다.
+- `hooks/` : React 훅을 모아 놓은 디렉토리입니다.
+- `services/` : API 호출을 관리하는 함수들이 위치한 디렉토리입니다.
+- `types/` : TypeScript 타입 정의 파일들이 위치한 디렉토리입니다.
+- `config/` : 프로젝트 설정 파일들이 위치한 디렉토리입니다.
+
+## 한계점 및 개선 사항
+
+1. 무한 스크롤 구현:
+
+- 현재 무한 스크롤을 적용할 때 데이터를 불러오는 방식이 최적화되어 있지 않아, 스크롤을 구현한 후 무한 스크롤 기능을 적용했습니다. 이는 성능에 영향을 미칠 수 있으며, 더 나은 방법으로 개선할 필요가 있습니다.
+
+2. 홈 화면으로 이동 시 새로고침 문제:
+
+- 로고를 클릭하여 홈 화면으로 이동할 때, 페이지가 새로고침되지 않고 캐싱된 데이터를 사용하는 문제가 있습니다. 이로 인해 최신 데이터를 보지 못할 수 있으며, 이 부분에 대한 개선이 필요합니다.
+
+## 프로젝트 시작하기
+
+### 개발 서버 실행
+
+먼저, 개발 서버를 실행하려면 다음 명령어를 사용하세요:
+
+```
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+http://localhost:3000에서 브라우저를 열어 결과를 확인할 수 있습니다.
