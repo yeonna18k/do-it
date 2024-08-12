@@ -12,6 +12,11 @@ export interface TodoProps {
   className?: React.HTMLAttributes<HTMLDivElement>["className"];
 }
 
+interface TodosData {
+  pages: ApiResponse[][];
+  pageParams: any[];
+}
+
 const useTodoMutation = (isDetail?: boolean) => {
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -19,8 +24,6 @@ const useTodoMutation = (isDetail?: boolean) => {
   const switchTodoMutation = useMutation({
     mutationFn: switchTodo,
     onMutate: async ({ id, isCompleted }: Omit<TodoProps, "name">) => {
-      // Omit: TodoProps에서 부분만 사용
-
       if (isDetail) {
         // Optimistic Updates: Detail 페이지에서 사용
         await queryClient.cancelQueries({ queryKey: ["todos", id] });
@@ -33,26 +36,44 @@ const useTodoMutation = (isDetail?: boolean) => {
       } else {
         // Optimistic Updates: Home 페이지에서 사용
         await queryClient.cancelQueries({ queryKey: ["todos"] });
-        const previousTodo = queryClient.getQueryData<ApiResponse[]>(["todos"]) || [];
-        const newTodoList = previousTodo?.map((todo) => (todo.id === id ? { ...todo, isCompleted } : todo));
-        queryClient.setQueryData<ApiResponse[]>(["todos"], newTodoList);
-        return { newTodoList };
+        const previousPageTodo = queryClient.getQueryData<TodosData>(["todos"]);
+        if (previousPageTodo && Array.isArray(previousPageTodo.pages)) {
+          const previousTodo: ApiResponse[] = previousPageTodo?.pages.flat();
+
+          const newTodoList = previousTodo?.map((todo) => (todo.id === id ? { ...todo, isCompleted } : todo));
+          console.log(newTodoList);
+          if (newTodoList) {
+            queryClient.setQueryData(["todos"], {
+              ...previousPageTodo,
+              pages: [newTodoList],
+            });
+          }
+          return { newTodoList };
+        }
       }
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
-    },
+    // onSettled: () => {
+    //   queryClient.invalidateQueries({ queryKey: ["todos"] });
+    // },
   });
 
   const { mutate: deleteTodoMutation } = useMutation({
     mutationFn: deleteTodo,
     onMutate: async (id) => {
       await queryClient.cancelQueries({ queryKey: ["todos"] });
-      const previousTodo = queryClient.getQueryData<ApiResponse[]>(["todos"]) || [];
-      const newTodoList = previousTodo.filter((todo) => todo.id !== id);
+      const previousPageTodo = queryClient.getQueryData<TodosData>(["todos"]);
+      if (previousPageTodo && Array.isArray(previousPageTodo.pages)) {
+        const previousTodo: ApiResponse[] = previousPageTodo?.pages.flat();
+        const newTodoList = previousTodo.filter((todo) => todo.id !== id);
+        if (newTodoList) {
+          queryClient.setQueryData(["todos"], {
+            ...previousPageTodo,
+            pages: [newTodoList],
+          });
+        }
 
-      queryClient.setQueryData<ApiResponse[]>(["todos"], newTodoList);
-      return { newTodoList };
+        return { newTodoList };
+      }
     },
   });
 
@@ -60,16 +81,30 @@ const useTodoMutation = (isDetail?: boolean) => {
     mutationFn: editTodo,
     onMutate: async ({ id, name, memo, imageUrl }) => {
       await queryClient.cancelQueries({ queryKey: ["todos", id] });
+
+      const previousPageTodo = queryClient.getQueryData<TodosData>(["todos"]);
       const previousTodo = queryClient.getQueryData<ApiResponse>(["todos", id]);
+
       if (previousTodo) {
         const newTodo = { ...previousTodo, name, memo, imageUrl };
-        queryClient.setQueryData<ApiResponse>(["todos", id], newTodo);
+        if (previousPageTodo && Array.isArray(previousPageTodo.pages)) {
+          const updatedPages = previousPageTodo.pages.map((page) =>
+            page.map((todo) => (todo.id === id ? newTodo : todo)),
+          );
+
+          queryClient.setQueryData(["todos"], {
+            ...previousPageTodo,
+            pages: updatedPages,
+          });
+        } else {
+          queryClient.setQueryData(["todos", id], newTodo);
+        }
+        return { previousTodo };
       }
-      return { previousTodo };
     },
     onSuccess: (todo) => {
-      queryClient.invalidateQueries({ queryKey: ["todos", todo.id] });
       router.push("/");
+      queryClient.invalidateQueries({ queryKey: ["todos", todo.id] });
     },
   });
 
