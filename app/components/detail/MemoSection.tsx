@@ -9,6 +9,7 @@ interface MemoSectionProps {
 export const MemoSection = ({ memo, setMemo }: MemoSectionProps) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  // 텍스트 영역의 크기를 자동으로 조절하는 함수
   const autoResize = () => {
     if (textareaRef.current) {
       if (textareaRef.current.scrollHeight > 211) {
@@ -19,11 +20,15 @@ export const MemoSection = ({ memo, setMemo }: MemoSectionProps) => {
       }
     }
   };
+
+  // 컴포넌트가 마운트될 때 초기 크기 조정
   useEffect(() => {
     autoResize();
   }, []);
+
   return (
     <div className="relative w-full lg:w-[588px] h-[311px] flex flex-col justify-between items-center ">
+      {/* 메모 섹션의 배경 이미지 */}
       <Image
         src={"/images/memo.svg"}
         fill
@@ -33,6 +38,7 @@ export const MemoSection = ({ memo, setMemo }: MemoSectionProps) => {
       />
       <div className="text-amber-800 text-300 my-6 z-10">Memo</div>
       <div className="w-full h-[245px] p-6 pt-0 flex justify-center items-center">
+        {/* 텍스트 입력 영역 */}
         <textarea
           ref={textareaRef}
           placeholder="할 일에 대한 메모를 입력해보세요"

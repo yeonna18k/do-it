@@ -15,6 +15,7 @@ export const ImageSection = ({
   const imgRef = useRef<HTMLInputElement>(null);
   const [previewImg, setPreviewImg] = useState<string>(DEFAULT_IMG);
 
+  // 이미지 업로드 및 미리보기 처리 함수
   const handleUploadImg = async () => {
     setPreviewImg(DEFAULT_IMG);
     if (imgRef.current?.files && imgRef.current?.files[0]) {
@@ -27,6 +28,8 @@ export const ImageSection = ({
       setImgFile(file);
     }
   };
+
+  // imgUrl 변경 시 미리보기 이미지 설정
   useEffect(() => {
     imgUrl && setPreviewImg(imgUrl);
   }, [imgUrl]);
@@ -35,6 +38,7 @@ export const ImageSection = ({
     <div
       className={`relative w-full lg:w-[384px] h-[311px] flex justify-center bg-slate-50 ${imgUrl ? "border-none" : "border-dashed"} border-2 rounded-3xl border-slate-300`}
     >
+      {/* 미리보기 이미지, imgUrl의 이미지 렌더링 */}
       <Image
         src={previewImg}
         fill
@@ -43,7 +47,9 @@ export const ImageSection = ({
         style={{ objectFit: previewImg === DEFAULT_IMG ? "none" : "cover", borderRadius: "24px" }}
         alt={"default img"}
       />
+      {/* 이미지 파일 입력 필드, 숨겨져 있음 */}
       <input type="file" id="file" className="hidden" accept="image/*" ref={imgRef} onChange={handleUploadImg} />
+      {/* 업로드된 이미지가 있을 경우 편집 아이콘, 없을 경우 추가 아이콘 표시 */}
       {imgUrl ? (
         <label
           htmlFor="file"
