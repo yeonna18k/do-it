@@ -52,9 +52,6 @@ const useTodoMutation = (isDetail?: boolean) => {
         }
       }
     },
-    // onSettled: () => {
-    //   queryClient.invalidateQueries({ queryKey: ["todos"] });
-    // },
   });
 
   const { mutate: deleteTodoMutation } = useMutation({
@@ -63,17 +60,16 @@ const useTodoMutation = (isDetail?: boolean) => {
       await queryClient.cancelQueries({ queryKey: ["todos"] });
       const previousPageTodo = queryClient.getQueryData<TodosData>(["todos"]);
       if (previousPageTodo && Array.isArray(previousPageTodo.pages)) {
-        const previousTodo: ApiResponse[] = previousPageTodo?.pages.flat();
-        const newTodoList = previousTodo.filter((todo) => todo.id !== id);
-        if (newTodoList) {
-          queryClient.setQueryData(["todos"], {
-            ...previousPageTodo,
-            pages: [newTodoList],
-          });
-        }
-
-        return { newTodoList };
+        const newPages = previousPageTodo.pages.map((page) => page.filter((todo) => todo.id !== id));
+        queryClient.setQueryData(["todos"], {
+          ...previousPageTodo,
+          pages: newPages,
+        });
+        return { previousPageTodo };
       }
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
   });
 
