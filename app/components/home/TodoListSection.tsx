@@ -28,7 +28,7 @@ export const TodoListSection = () => {
 
   if (!todos) return <LoadingSpinner />;
   return (
-    <div className="max-h-[700px] lg:max-h-[560px] overflow-y-auto">
+    <div className="max-h-[700px] lg:max-h-[382px] overflow-y-auto">
       <div className="flex flex-col items-center lg:flex-row lg:justify-center lg:items-start gap-8 lg:gap-6 mt-4 mb-10">
         <TodoWrapper todos={todos} isDone={false} />
         <TodoWrapper todos={todos} isDone={true} />
