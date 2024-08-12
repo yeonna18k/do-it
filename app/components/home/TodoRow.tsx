@@ -18,7 +18,7 @@ export const TodoRow = ({ id, isCompleted, name, setName, isDetail }: TodoProps)
   const rowContent = (
     <div
       className={cn(
-        `flex items-center border-2 border-black rounded-[27px] p-2 gap-4 bg-white`,
+        `h-[50px] flex items-center border-2 border-black rounded-[27px] p-2 gap-4 bg-white`,
         { "line-through bg-violet-100": isCompleted },
         { "text-500 justify-center underline": isDetail },
       )}

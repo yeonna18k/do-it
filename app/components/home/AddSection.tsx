@@ -24,7 +24,7 @@ export const AddSection = () => {
         value={input}
         onChange={(e) => setInput(e.target.value)}
         placeholder="할 일을 입력해주세요"
-        className="w-full px-6 py-4 bg-slate-100 border-2 border-black rounded-[24px] shadow-input text-100"
+        className="w-full h-[56px] px-6 py-4 bg-slate-100 border-2 border-black rounded-[24px] shadow-input text-100"
       />
       <Button
         icon={todos?.length === 0 ? "addPurple" : "addDefault"}
