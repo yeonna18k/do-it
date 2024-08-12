@@ -8,6 +8,7 @@ export const EmptyTodo = ({ isDone }: { isDone: boolean }) => {
   return (
     <>
       <div className="flex flex-col justify-center items-center gap-4 md:gap-6 lg:mt-16">
+        {/* 완료된 할 일인지 여부에 따라 다른 이미지를 표시 */}
         {isDone ? (
           <>
             <DoneLgImg className="hidden md:block" />
@@ -19,7 +20,7 @@ export const EmptyTodo = ({ isDone }: { isDone: boolean }) => {
             <TodoSmImg className="md:hidden" />
           </>
         )}
-
+        {/* 완료 여부에 따라 다른 메시지 표시 */}
         <div className="flex text-100 text-center text-slate-400">
           {isDone ? (
             <>

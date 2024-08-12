@@ -10,11 +10,13 @@ import useTodoMutation, { TodoProps } from "@/app/hooks/detail/useTodoMutation";
 export const TodoRow = ({ id, isCompleted, name, setName, isDetail }: TodoProps) => {
   const { switchTodoMutation } = useTodoMutation(isDetail);
 
+  // 체크박스 아이콘 클릭 시 할 일의 완료 상태를 전환하는 함수
   const handleIconClick = (e: React.MouseEvent) => {
     e.preventDefault();
     switchTodoMutation.mutate({ id, isCompleted: !isCompleted });
   };
 
+  // 할 일 내용 또는 수정 가능한 input 필드
   const rowContent = (
     <div
       className={cn(
@@ -23,12 +25,14 @@ export const TodoRow = ({ id, isCompleted, name, setName, isDetail }: TodoProps)
         { "text-500 justify-center underline": isDetail },
       )}
     >
+      {/* 완료 상태 토글 아이콘 */}
       <div
         className="transition ease-linear hover:cursor-pointer hover:opacity-25 rounded-full"
         onClick={handleIconClick}
       >
         {isCompleted ? <CheckedBoxIcon /> : <DefaultBoxIcon />}
       </div>
+      {/* 할 일 내용 또는 수정 가능한 input 필드 */}
       {isDetail ? (
         <input
           defaultValue={name}
@@ -48,6 +52,6 @@ export const TodoRow = ({ id, isCompleted, name, setName, isDetail }: TodoProps)
       )}
     </div>
   );
-
+  // 홈페이지에서 할 일 항목을 링크로 감싸서 클릭 시 상세 페이지로 이동
   return isDetail ? rowContent : <Link href={`/items/${id}`}>{rowContent}</Link>;
 };
