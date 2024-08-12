@@ -51,7 +51,9 @@ export const DetailContainer = ({ id }: { id: string }) => {
     );
 
   return (
-    <form className={`${isEditTodoPending ? "opacity-50 pointer-events-none " : ""}`}>
+    <div
+      className={`h-screen lg:max-w-[1200px] mx-auto ${isEditTodoPending ? "opacity-50 pointer-events-none " : ""} flex flex-col gap-4 md:gap-6 bg-white p-4 md:p-6 lg:px-[102px]`}
+    >
       {todo && (
         <TodoRow
           id={todo.id}
@@ -62,9 +64,12 @@ export const DetailContainer = ({ id }: { id: string }) => {
           className="justify-center underline"
         />
       )}
-      <ImageSection imgUrl={todo?.imageUrl} setImgFile={setImgFile} />
-      <MemoSection memo={todo?.memo || ""} setMemo={setMemo} />
+      <div className="flex flex-col lg:flex-row gap-4 md:gap-6">
+        <ImageSection imgUrl={todo?.imageUrl} setImgFile={setImgFile} />
+        <MemoSection memo={todo?.memo || ""} setMemo={setMemo} />
+      </div>
+
       <ButtonSection isCompleted={todo?.isCompleted} editHandler={editHandler} deleteHandler={deleteHandler} />
-    </form>
+    </div>
   );
 };
