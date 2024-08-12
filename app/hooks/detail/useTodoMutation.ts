@@ -17,15 +17,17 @@ interface TodosData {
   pageParams: any[];
 }
 
+// useTodoMutation 훅: 할 일(todo)에 대한 다양한 mutation 작업을 처리하는 훅
 const useTodoMutation = (isDetail?: boolean) => {
   const router = useRouter();
   const queryClient = useQueryClient();
 
+  // 할 일 완료 상태를 전환하는 mutation
   const switchTodoMutation = useMutation({
     mutationFn: switchTodo,
     onMutate: async ({ id, isCompleted }: Omit<TodoProps, "name">) => {
       if (isDetail) {
-        // Optimistic Updates: Detail 페이지에서 사용
+        // Detail 페이지에서의 Optimistic Updates
         await queryClient.cancelQueries({ queryKey: ["todos", id] });
         const previousTodo = queryClient.getQueryData<ApiResponse>(["todos", id]);
         if (previousTodo) {
@@ -34,7 +36,7 @@ const useTodoMutation = (isDetail?: boolean) => {
           return { newTodo };
         }
       } else {
-        // Optimistic Updates: Home 페이지에서 사용
+        // Home 페이지에서의 Optimistic Updates
         await queryClient.cancelQueries({ queryKey: ["todos"] });
         const previousPageTodo = queryClient.getQueryData<TodosData>(["todos"]);
         if (previousPageTodo && Array.isArray(previousPageTodo.pages)) {
@@ -54,6 +56,7 @@ const useTodoMutation = (isDetail?: boolean) => {
     },
   });
 
+  // 할 일을 삭제하는 mutation
   const { mutate: deleteTodoMutation } = useMutation({
     mutationFn: deleteTodo,
     onMutate: async (id) => {
@@ -73,6 +76,7 @@ const useTodoMutation = (isDetail?: boolean) => {
     },
   });
 
+  // 할 일을 수정하는 mutation
   const { mutateAsync: editTodoMutation, isPending: isEditTodoPending } = useMutation({
     mutationFn: editTodo,
     onMutate: async ({ id, name, memo, imageUrl }) => {
@@ -104,6 +108,7 @@ const useTodoMutation = (isDetail?: boolean) => {
     },
   });
 
+  // 이미지 파일을 업로드하는 mutation
   const uploadMutation = useMutation({
     mutationFn: (file: File) => uploadImg(file),
     onError: (error) => {
@@ -111,6 +116,7 @@ const useTodoMutation = (isDetail?: boolean) => {
     },
   });
 
+  // 다양한 할 일 mutation 함수들을 반환
   return { switchTodoMutation, deleteTodoMutation, editTodoMutation, isEditTodoPending, uploadMutation };
 };
 export default useTodoMutation;

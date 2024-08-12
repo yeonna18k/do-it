@@ -35,7 +35,7 @@ const useCreateTodo = (setInput: React.Dispatch<SetStateAction<string>>) => {
       console.log("mutation 실패", error);
     },
   });
-  // 할 일 생성 뮤테이션 반환
+  // 할 일 생성 mutation 반환
   return { createTodoMutation };
 };
 
