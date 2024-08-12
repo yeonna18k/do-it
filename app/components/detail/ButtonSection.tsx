@@ -9,15 +9,23 @@ interface ButtonSectionProps {
 
 export const ButtonSection = ({ isCompleted, editHandler, deleteHandler }: ButtonSectionProps) => {
   return (
-    <div className="flex gap-4 justify-center">
+    <div className=" mt-2 md:mt-0 flex gap-2 md:gap-4 justify-center lg:justify-end">
       <Button
         icon={"complete"}
         content={"수정 완료"}
         bgColor={`${isCompleted ? "green" : "gray"}`}
         textColor={"black"}
+        isDetail={true}
         onClick={editHandler}
       />
-      <Button icon={"delete"} content={"삭제하기"} bgColor={"red"} textColor={"white"} onClick={deleteHandler} />
+      <Button
+        icon={"delete"}
+        content={"삭제하기"}
+        bgColor={"red"}
+        textColor={"white"}
+        isDetail={true}
+        onClick={deleteHandler}
+      />
     </div>
   );
 };

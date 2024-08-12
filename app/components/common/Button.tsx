@@ -10,6 +10,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   // content: string;
   bgColor: "red" | "purple" | "green" | "gray";
   textColor: "black" | "white";
+  isDetail?: boolean;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => Promise<void>;
 }
 
 const bgColorMap: { [key: string]: string } = {
@@ -24,7 +26,7 @@ const textColorMap: { [key: string]: string } = {
   white: "text-white",
 };
 
-export const Button = ({ icon, content, bgColor, textColor, ...props }: ButtonProps) => {
+export const Button = ({ icon, content, bgColor, textColor, isDetail, onClick }: ButtonProps) => {
   const bgColorClass = bgColorMap[bgColor] || "bg-slate-200";
   const textColorClass = textColorMap[textColor] || "black";
 
@@ -45,9 +47,9 @@ export const Button = ({ icon, content, bgColor, textColor, ...props }: ButtonPr
 
   return (
     <button
-      {...props}
-      className={`flex items-center justify-center md:min-w-[162px] lg:min-w-[168px] gap-1 p-[18px] border-2 border-black rounded-[24px] shadow-input 
-        ${bgColorClass}`}
+      onClick={onClick}
+      className={`h-[56px] flex items-center justify-center ${isDetail ? "w-[168px]" : "md:min-w-[162px] lg:min-w-[168px]"} gap-1 p-[18px] border-2 border-black rounded-[24px] shadow-input 
+        ${bgColorClass} `}
     >
       {renderIcon()}
       <span className={`${content === "추가하기" && "hidden md:block"} ${textColorClass} text-100`}>{content}</span>
