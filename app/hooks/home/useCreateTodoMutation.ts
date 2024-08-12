@@ -8,6 +8,7 @@ interface TodosData {
   pageParams: any[];
 }
 
+// useCreateTodo 훅: 새로운 할 일을 생성하는 로직을 처리
 const useCreateTodo = (setInput: React.Dispatch<SetStateAction<string>>) => {
   const queryClient = useQueryClient();
 
@@ -24,16 +25,17 @@ const useCreateTodo = (setInput: React.Dispatch<SetStateAction<string>>) => {
           ...previousPageTodo,
           pages: [[{ name, isCompleted: false, id: 0 }, ...previousTodo]],
         });
-        return { previousTodo };
+        return { previousTodo }; // Optimistic Update를 위해 이전 데이터를 반환
       }
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
     onError: (error) => {
       console.log("mutation 실패", error);
     },
   });
+  // 할 일 생성 뮤테이션 반환
   return { createTodoMutation };
 };
 
