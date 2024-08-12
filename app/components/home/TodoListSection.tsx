@@ -18,8 +18,6 @@ export const TodoListSection = () => {
       }
       observeRef.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
-          console.log(hasNextPage);
-
           if (hasNextPage) fetchNextPage();
         }
       });
