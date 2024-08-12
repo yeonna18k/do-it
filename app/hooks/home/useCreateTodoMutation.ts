@@ -24,17 +24,14 @@ const useCreateTodo = (setInput: React.Dispatch<SetStateAction<string>>) => {
           ...previousPageTodo,
           pages: [[{ name, isCompleted: false, id: 0 }, ...previousTodo]],
         });
-        console.log(previousTodo);
         return { previousTodo };
       }
     },
     onSuccess: (data) => {
-      console.log("mutation 성공", data);
       queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
     onError: (error) => {
       console.log("mutation 실패", error);
-      // 여기서 에러에 따라 이전 상태로 롤백하거나 다른 처리를 할 수 있습니다.
     },
   });
   return { createTodoMutation };
