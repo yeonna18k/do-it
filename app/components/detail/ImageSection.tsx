@@ -33,11 +33,13 @@ export const ImageSection = ({
 
   return (
     <div
-      className={`relative w-full h-[311px] flex justify-center bg-slate-50 ${imgUrl ? "border-none" : "border-dashed"} border-2 rounded-3xl border-slate-300`}
+      className={`relative w-full lg:w-[384px] h-[311px] flex justify-center bg-slate-50 ${imgUrl ? "border-none" : "border-dashed"} border-2 rounded-3xl border-slate-300`}
     >
       <Image
         src={previewImg}
         fill
+        priority
+        sizes="width: full"
         style={{ objectFit: previewImg === DEFAULT_IMG ? "none" : "cover", borderRadius: "24px" }}
         alt={"default img"}
       />

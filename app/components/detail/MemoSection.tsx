@@ -23,18 +23,20 @@ export const MemoSection = ({ memo, setMemo }: MemoSectionProps) => {
     autoResize();
   }, []);
   return (
-    <div className="relative w-full h-[311px] flex flex-col justify-between items-center">
+    <div className="relative w-full lg:w-[588px] h-[311px] flex flex-col justify-between items-center ">
       <Image
         src={"/images/memo.svg"}
         fill
+        priority
         alt="memo"
-        style={{ objectFit: "cover", borderRadius: "24px", zIndex: "-1" }}
+        style={{ objectFit: "cover", borderRadius: "24px", zIndex: "1" }}
       />
-      <div className="text-amber-800 text-300 my-6">Memo</div>
+      <div className="text-amber-800 text-300 my-6 z-10">Memo</div>
       <div className="w-full h-[245px] p-6 pt-0 flex justify-center items-center">
         <textarea
           ref={textareaRef}
           placeholder="할 일에 대한 메모를 입력해보세요"
+          style={{ zIndex: "10" }}
           defaultValue={memo}
           onInput={autoResize}
           onChange={() => {
